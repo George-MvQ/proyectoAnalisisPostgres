@@ -1,0 +1,143 @@
+{% extends 'shared/menu_lateral.html' %}
+
+{% block title %}
+  Marcas
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--  <script src="{% static 'js/jquery.min.js' %}"></script>
+          --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/gridjs.css' %}" />
+
+  {% endblock %}
+
+{% block content %}
+
+
+  <h2>Gestión de Marcas</h2>
+<!--   <div class="container botonFormulario" id="meter">
+    <button id="btnAgregdarMarca" type="button" class="btn btn-primary adelante" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</button>
+  </div> -->
+
+
+    <button class="btn btn-danger" id = "btn_imprimir" data-url= "/admon/reporte-marcas/">
+      &#128424;Imprimir
+  </button>
+
+ 
+
+{% comment %} TABLA {% endcomment %}
+  <div class="container my-3 contenedor-tabla">
+    <table id="datosmarca" class="table table-striped text-white">
+      <thead>
+        <tr  class="text-center align-middle text-white font-weight-bold">
+          <th>Id Marca</th>
+          <th>Nombre Marca</th>
+          <th>Descripcion</th>
+          <th>Estado</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody" class="text-white">
+        {% for marca in datos %}
+          <tr data-id="{{ marca.id_marcas}}">
+            <td>{{marca.id_marcas}}</td>
+            <td>{{marca.nombre_marca}}</td>
+            <td>{{marca.descripcion}}</td>
+            <td>{{marca.estado|yesno:'Activo,Inactivo'}}</td>
+            <td>
+              <button class="btn-espacio btn-eliminar-marca btn btn-outline-danger" data-id="{{ marca.id_marcas }}">Eliminar</button>
+              <button class="btn-formActualizar btn btn-outline-info" data-id="{{ marca.id_marcas }}" data-bs-toggle="modal" data-bs-target="#modal_actualizar">Actualizar</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% comment %} SECCION MODAL {% endcomment %}
+  <div class="modal fade otraClase" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVA MARCA</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form_body" id="form_agregar_marca" method="POST">
+            {% csrf_token %}
+            {{ form.nombre_marca.label_tag }}
+            {{ form.nombre_marca }}
+            {{ form.descripcion.label_tag }}
+            {{ form.descripcion }}
+            {{ form.estado.label_tag }}
+            {{ form.estado  }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="btGuardarMarca" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+<div id="tablaPrueba"></div>
+
+<div class="modal fade" id="modal_actualizar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h5 class="modal-title fs-5 text-black" id="staticBackdropLabel">Actualizar Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form_actualizar">
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">Nombre Categoria</label>
+            <input type="text" class="form-control" id="frm_nom_categoria" name="nombre_marca" placeholder="Texto">
+          </div>
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">Descripcion</label>
+            <input type="text" class="form-control" id="frm_desc" name="descripcion" placeholder="Texto">
+          </div>
+          <div class="form-group">
+            <label for="inputState" class="text-black">Estado</label>
+            <select name= "estado" id="frm_estado" class="form-select">
+              <option value = "Activo">Activo</option>
+              <option value = "Inactivo">Inactivo</option>
+            </select> 
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="`button" id="btn_actualizar" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/popper.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/tippy.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/marcas.js' %}"></script>
+  <script type="module" src="{% static 'js/reportesimprimir.js' %}"></script>
+  
+  
+{% endblock %}

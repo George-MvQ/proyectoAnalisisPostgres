@@ -1,0 +1,88 @@
+/* Estilos base */
+section h1 {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 4%;
+}
+
+.abc{
+    display: grid;
+    grid-template-columns: auto;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.fondo {
+     /* Cambiado de width: 1000px;  max-width: 100%;*/
+    /*margin-left: 8%;*/
+    /*margin-right: 8%; /* Agregado para centrar el elemento */
+    /*padding: 1.5%;*/
+    background-color: rgba(71, 85, 95, 0.464);
+    border-radius: 25px;
+    box-sizing: border-box; /* Evita que el padding afecte el ancho total */
+    padding: 5%;
+}
+
+section h2 {
+    text-align: left;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 110%;
+}
+
+section h2, section p {
+    transition: color 0.3s ease; /* Agrega una transición de color suave */
+}
+
+/* Cambia el color de los h2 y p al pasar el mouse */
+section h2:hover, section p:hover {
+    color: #00c8ff; /* Cambia el color del texto al pasar el mouse */
+}
+
+section {
+    text-align: center; /* Centra el texto */
+    background-color: rgba(0, 0, 0, 0.2); /* Fondo negro transparente */
+    padding: 20px; /* Agrega espacio alrededor del contenido */
+}
+
+section p {
+    text-align: justify;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/* Aplicar transparencia inicial a los elementos con clase "fadeIn" */
+.fadeIn {
+    opacity: 0;
+}
+
+/* Agregar una animación de fade-in gradual */
+.fadeIn {
+    animation: fadeInAnimation 2s ease-in-out forwards;
+}
+
+/* Definir la animación */
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(-10px); /* Opcional: Agrega un desplazamiento vertical */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Opcional: Restablece la posición original */
+    }
+}
+
+/* Estilos para pantallas pequeñas (consulta de medios) */
+@media screen and (max-width: 768px) {
+    .fondo {
+        margin-left: 4%;
+        margin-right: 4%;
+    }
+
+    section h2 {
+        font-size: 100%; /* Ajusta el tamaño de fuente para pantallas pequeñas */
+    }
+}
+
+

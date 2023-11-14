@@ -1,0 +1,99 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block title %}
+  Modulo Administrativo
+{% endblock %}
+
+{% block link %}
+  <!-- carga de archivo css general -->
+
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+ {% comment %}  <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> {% endcomment %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/adminstyle.css' %}" />
+  
+{% endblock %}
+
+{% block body %}
+  <h1 class="titulo">EMPLEADOS</h1>
+
+  <button class="btn btn-danger ms-3" id = "btn_imprimir" data-url= "/admon/reporte-empleado/">
+    &#128424;Imprimir
+  </button>
+  <br>
+  <br>
+  {% comment %}TABLA DE DATOS{% endcomment %}
+  <div class="table-responsive">
+    <table id="tbDatosEmpleados" class="table table-hover table-responsive">
+      <thead>
+        <tr class="text-center align-middle text-white font-weight-bold">
+          <th>Id Empleado</th>
+          <th>Primer Nombre</th>
+          <th>Primer Apellido</th>
+          <th>Puesto</th>
+          <th>Usuario</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      
+
+      <tbody id="tablaBody" class = "text-white">
+        {% for empleado in datos %}
+          <tr data-id="{{ empleado.id_empleado }}">
+            <td>{{ empleado.id_empleado }}</td>
+            <td>{{ empleado.primer_nombre }}</td>
+            <td>{{ empleado.primer_apellido }}</td>
+            <td>{{ empleado.fk_id_puesto }}</td>
+            <td>{{ empleado.fk_usuario }}</td>
+            <td>
+              <button class="btn-espacio btn-eliminar-empleado btn btn-outline-danger" data-id="{{ empleado.id_empleado }}">Eliminar</button>
+              <a class="btn btn-outline-info" href="{% url 'detalle_empleado' empleado.id_empleado %}">Detalles</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% comment %}SECCION MODAL{% endcomment %}
+  <div class="modal fade otraClase  " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVO EMPLEADO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form   method="POST" class="form_body" id="form_empleado">
+            {% csrf_token %}
+            {% load bootstrap5 %}
+            {% bootstrap_form form %}
+           {% buttons %}
+             <button id="btGuardarDato" type="submit" class="btn btn-primary">Guardar</button>
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+           {% endbuttons %}
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ 
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/popper.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/tippy.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/administracion_app/empleado.js' %}"></script>
+  <script type="module" src="{% static 'js/reportesimprimir.js' %}"></script>
+{% endblock %}
+
+

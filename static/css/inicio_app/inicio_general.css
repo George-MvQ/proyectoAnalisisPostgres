@@ -1,0 +1,120 @@
+body{
+    background-color: #0F171A;
+    color: white;
+
+}
+
+/*imagen logotienda*/
+#logotienda{
+    width: auto;
+    height: 100px;
+    position: absolute;
+    top: 45%;
+    left: 60%;
+}
+
+/*Letras */
+#pbienvenida {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 35px;
+    color: rgb(69, 66, 66);
+    margin-top: 21%;
+    margin-left: 6%;
+
+}
+
+#pbienvenida:before {
+    content: attr(data-text);
+    position: absolute;
+    background: white;
+    -webkit-background-clip: text;
+    color: transparent;
+    line-height: 0.9;
+    clip-path: ellipse(120px 120px at -2.54% -9.25%);
+    animation: swing 5s infinite;
+    animation-direction: alternate;
+}
+
+#p2bienvenida {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 35px;
+    color: rgb(69, 66, 66);
+    margin-left: 8%;
+
+}
+
+#p2bienvenida:before {
+    content: attr(data-text);
+    position: absolute;
+    background: white;
+    -webkit-background-clip: text;
+    color: transparent;
+    line-height: 0.9;
+    clip-path: ellipse(120px 120px at -2.54% -9.25%);
+    animation: swing 5s infinite;
+    animation-direction: alternate;
+}
+
+@keyframes swing {
+    0% {
+        -webkit-clip-path: ellipse(120px 120px at -2.54% -9.25%); clip-path: ellipse(120px 120px at -2.54% -9.25%)
+    }
+
+    50% {
+        -webkit-clip-path: ellipse(120px 120px at 49.66% 64.36%);
+        clip-path: ellipse(120px 120px at 49.66% 64.36%);
+
+    }
+
+    100% {
+        -webkit-clip-path: ellipse(120px 120px at 102.62% -1.61% );
+        clip-path: ellipse(120px 120px at 102.62% -1.61%);
+    }
+}
+/*Boton inicio de sesion*/
+
+#sesion{
+    position: absolute;
+    top:120px;
+    left:43%;
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(251, 251, 251, 0.27);
+    box-shadow: 4px 8px 19px -3px rgb(149, 149, 149);
+    transition: all 250ms;
+    overflow: hidden;
+}
+
+#sesion::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #5fef8d;
+    box-shadow: 4px 8px 19px -3px #5fef8d;;
+    z-index: -1;
+    transition: all 250ms
+}
+
+#sesion:hover {
+    color: rgb(3, 3, 3);
+}
+
+#sesion:hover::before {
+    width: 100%;
+}
+

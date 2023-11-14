@@ -1,0 +1,203 @@
+{% extends 'shared/menu_lateral.html' %}
+
+{% block title %}
+  Proveedores
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--         <script src="{% static 'js/jquery.min.js' %}"></script>
+                 --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/proveedores.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <h2>Gestión de Proveedores</h2>
+  <!--          <div class="container botonFormulario" id="meter">
+    <button id="btnAgregdarMarca" type="button" class="btn btn-primary adelante" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</button>
+  </div>        -->
+
+  <div class="pollito"></div>
+
+  <!--       
+  <label for="recordsPerPage">Registros por página:</label>
+  <select id="selectElementos">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+  </select>
+       -->
+  
+  <button type="button" data-url="/admon/reporte-proveedores/" class="btn btn-danger  ms-4" id="btn_imprimir">&#128424; Imprimir</button>
+
+
+  <div class="container my-3">
+    <table id="datosproveedores" class="table table-striped text-white">
+      <thead>
+        <tr>
+          <th>Codigo</th>
+          <th>Proveedor</th>
+          <th>Telefono</th>
+          <th>Dia de Visita</th>
+          <th>Dia de Entrega</th>
+          <th>Descripcion</th>
+          <th>Estado</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody" class="text-white">
+        {% for proveedor in datos %}
+          <tr data-id="{{ proveedor.id_proveedor}}">
+            <td>{{ proveedor.id_proveedor }}</td>
+            <td>{{ proveedor.nombre_proveedor }}</td>
+            <td>{{ proveedor.telefono }}</td>
+            <td>{{ proveedor.dia_visita }}</td>
+            <td>{{ proveedor.dia_entrega }}</td>
+            <td>{{ proveedor.descripcion }}</td>
+            <td>{{ proveedor.estado |yesno:'Activo,Inactivo' }}</td>
+            <td>
+              <button class="btn-espacio btn-eliminar-proveedor btn btn-outline-danger" data-id="{{ proveedor.id_proveedor }}">Eliminar</button>
+              <button class="btn-formActualizar btn btn-outline-info" data-id="{{ proveedor.id_proveedor }}" data-bs-toggle="modal" data-bs-target="#modal_actualizar">Actualizar</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade otraClase" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Ingrese Datos Del Proveedor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+        <form class="row" id="form_agregar_proveedor" method="POST">
+          {% csrf_token %}
+          
+          
+          <div class="col-md-6 fw-bold "> 
+            <div class="form-group mb-3">
+              {{ form.nombre_proveedor.label_tag }}
+              {{ form.nombre_proveedor }}
+            </div>
+            <div class="form-group mb-3">
+              {{ form.dia_entrega.label_tag }}
+              {{ form.dia_entrega }}
+            </div>
+            <div class="form-group mb-3">
+              {{ form.descripcion.label_tag }}
+              {{ form.descripcion }}
+            </div>
+          </div>
+          <div class="col-md-6 fw-bold"> 
+            <div class="form-group mb-3">
+              {{ form.telefono.label_tag }}
+              {{ form.telefono }}
+            </div>
+            <div class="form-group mb-3">
+              {{ form.dia_visita.label_tag }}
+              {{ form.dia_visita }}
+            </div>
+            <div class="form-group mb-3">
+              {{ form.estado.label_tag }}
+              {{ form.estado }}
+            </div>
+          </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="btGuardarProveedor" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div id="tablaPrueba"></div>
+
+  <!-- ! USANDO TABLE -->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_actualizar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h5 class="modal-title fs-5 text-black" id="staticBackdropLabel">Actualizar Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form_actualizar">
+          {% csrf_token %}
+
+          {% comment %} a {% endcomment %}
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">Nombre proveedor</label>
+            <input type="text" class="form-control" id="frm_proveedor" name="nombre_proveedor" placeholder="Texto">
+          </div>
+          {% comment %} a {% endcomment %}
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">Telefono</label>
+            <input type="text" class="form-control" id="frm_telefono" name="telefono" placeholder="Texto">
+          </div>
+          {% comment %} a {% endcomment %}
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">visita</label>
+            <input type="date" class="form-control" id="frm_visita" name="dia_visita" placeholder="Texto">
+          </div>
+          {% comment %} a {% endcomment %}
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">Entrega</label>
+            <input type="date" class="form-control" id="frm_entrega" name="dia_entrega" placeholder="Texto">
+          </div>
+          {% comment %} a {% endcomment %}
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">Descripcion</label>
+            <input type="text" class="form-control" id="frm_desc" name="descripcion" placeholder="Texto">
+          </div>
+          {% comment %} a {% endcomment %}
+          <div class="form-group">
+            <label for="inputState" class="text-black">Estado</label>
+            <select name= "estado" id="frm_estado" class="form-select">
+              <option value = "Activo">Activo</option>
+              <option value = "Inactivo">Inactivo</option>
+            </select> 
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" id="btn_actualizar" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  <span id="mensajemarca"></span>
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/popper.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/tippy.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/proveedores.js' %}"></script>
+  <script type="module" src="{% static 'js/reportesimprimir.js' %}"></script>
+{% endblock %}

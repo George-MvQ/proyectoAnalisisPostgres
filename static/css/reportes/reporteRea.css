@@ -1,0 +1,50 @@
+/* Estilos para el encabezado h1 */
+#titulo {
+    text-align: center;
+    margin-top: 150px; /* Ajusta este margen según tu preferencia */
+}
+
+/* Estilos para el contenedor de la tabla */
+.table-container {
+    margin: 20px auto; /* Margen superior e inferior de 20px, centrará horizontalmente */
+    width: 80%; /* Ancho del contenedor */
+    max-width: 800px; /* Máximo ancho del contenedor para mantenerlo responsive */
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td:last-child {
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(37, 37, 37);
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Estilos para el botón "Visualizar" */
+.visualizar-button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+}

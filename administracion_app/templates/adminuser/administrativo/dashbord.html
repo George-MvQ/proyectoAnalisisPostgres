@@ -1,0 +1,104 @@
+<!-- Estoy probando el dashboard -->
+{% extends 'shared/baseadmin.html' %} 
+
+{% block link %}
+  <!-- carga de archivo css general -->
+  {% load static %}
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/adminstyle.css' %}" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/dashboard.css' %}" />
+{% endblock %}
+
+{% block body %}
+  <!-- cargando imagenes -->
+  {% load static %}
+
+  <!-- Marcas -->
+  <nav class="nav flex-column nav-pills barra">
+    <div class="sidebar">
+      <ul>
+        <!-- Aqui empieza el Primer bloque -->
+        <li>
+          <a class="medida" class="nav-link px-3" data-bs-toggle="collapse" href="#layouts">
+            <span class="me-2"><i class="bi bi-cart4"></i></span>
+            <span>Ingreso Productos</span>
+            <span class="ms-auto"><span class="right-icon"><i class="bi bi-chevron-down ms-3"></i></span></span>
+          </a>
+          <div class="collapse" id="layouts">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="{% url 'productos_nuevos' %}" class="nav-link px-1">
+                  <!-- Aca metemos los links de los index -->
+                  <span class="me-2"><i class="bi bi-cart-plus"></i></span>
+                  <span>Registro Productos</span>
+                </a>
+                <a href="#" class="nav-link px-1">
+                  <!-- Aca metemos los links de los index -->
+                  <span class="me-2"><i class="bi bi-file-earmark-plus"></i></span>
+                  <span>Nuevo Producto</span>
+                </a>
+                <a href="#" class="nav-link px-1">
+                  <!-- Aca metemos los links de los index -->
+                  <span class="me-2"><i class="bi bi-folder-plus"></i></span>
+                  <span>Categorias</span>
+                </a>
+                <a href="#" class="nav-link px-1">
+                  <!-- Aca metemos los links de los index -->
+                  <span class="me-2"><i class="bi bi-bag-plus"></i></span>
+                  <span>Marcas</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <!-- Aqui empieza el Segundo bloque -->
+        <li>
+          <a class="medida" class="nav-link px-3" data-bs-toggle="collapse" href="#segundo">
+            <span class="me-2"><i class="bi bi-cart-plus"></i></span>
+            <span>Pedidos</span>
+            <span class="ms-auto"><span class="right-icon"><i class="bi bi-chevron-down custom-icon"></i></span></span>
+          </a>
+          <div class="collapse" id="segundo">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="#" class="nav-link px-1">
+                  <!-- Aca metemos los links de los index -->
+                  <span class="me-2"><i class="bi bi-card-checklist"></i></span>
+                  <span>Listado de Pedidos</span>
+                </a>
+                <a href="#" class="nav-link px-1">
+                  <!-- Aca metemos los links de los index -->
+                  <span class="me-2"><i class="bi bi-list-ol"></i></span>
+                  <span>Comprobante Pedido</span>
+                </a>
+<!--                 <a href="#" class="nav-link px-1">
+                  <span class="me-2"><i class="bi bi-card-list"></i></span>
+                  <span>Inventarios Minimos</span>
+                </a> -->
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="{% url 'proveedores' %}" class="nav-link px-1">
+            <!-- Aca metemos los links de los index -->
+            <span class="me-2"><i class="bi bi-person-lines-fill"></i></span>
+            <span>Proveedores</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link px-1">
+            <!-- Aca metemos los links de los index -->
+            <span class="me-2"><i class="bi bi-clipboard-data"></i></span>
+            <span>Reportes</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <!-- <script src="{% static 'js/administracion_app/dashboard.js' %}"></script> -->
+{% endblock %}

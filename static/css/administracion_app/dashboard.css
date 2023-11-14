@@ -1,0 +1,94 @@
+
+
+.sidebar {
+    height: 107%;
+    width: 235px;
+    background-color:#1D2B34; 
+    padding-top: 20px;
+    margin-top: -40px;
+  }
+  
+.barra{
+  height: 100%;
+}
+
+
+.pruebaPepito{
+ 
+  height: 100%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+  .sidebar ul {
+
+    list-style-type: none;
+    padding: 0;
+    
+  }
+  
+  .sidebar li {
+    padding: 10px;
+    line-height: 1.7; 
+  }
+  
+  .sidebar a {
+    padding: 9px;
+    text-decoration: none;
+    width: auto;
+    color: white;
+    display: block;
+    /* font-weight: bold !important;  */
+  }
+  
+  .sidebar a:hover {
+/*     height: 35px; */
+    padding: 9px;
+    background-color:#2f424d;
+    color:white;
+    width: auto;
+    border-radius: 2px;
+  } 
+  
+  .content {
+    margin-left: 250px;
+    /* padding: 15px; */
+  }
+  
+  
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    background-color:#1F2C34;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    width: 200px;
+  }
+  
+  .dropdown-content.active {
+    display: block;
+    max-height: 200px; /* Ajusta esta altura máxima según sea necesario */
+  }
+  
+  
+  .custom-icon{
+    margin-left: 37%; 
+  }
+
+  .custom-icon1{
+    margin-left: 10%; 
+  }
+  .custom-icon2{
+    margin-left: 18%; 
+  }
+
+
+ .medida{
+  width:200%;
+
+ }
+

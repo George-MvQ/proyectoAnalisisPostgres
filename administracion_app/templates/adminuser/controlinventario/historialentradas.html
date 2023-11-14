@@ -1,0 +1,104 @@
+{% extends 'shared/menu_lateral2.html' %}
+{% load django_template_maths %}
+{% block title %}
+  Entradas
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--   <script src="{% static 'js/jquery.min.js' %}"></script>
+           --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+ {% comment %}  <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> {% endcomment %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+<!--   <link rel="stylesheet" type="text/css" href="{% static 'css/gridjs.css' --> %}" />
+{% endblock %}
+
+{% block content %}
+  <h2>Historial de  Productos Entrantes</h2>
+ 
+  <br>
+  <div class="row g-3 ms-3" style="width: 96%; ">
+    
+    <div class="col-sm-2" >
+    <input id="fechaFiltro" type="date" class="form-control" aria-label="City"/>
+    </div>
+    <div class="col-sm-3">
+    <button type="button" class="btn btn-info">Limpiar</button>
+   </div>
+   <div class="col-sm-4">
+    <button class="btn btn-danger" id = "btn_imprimir" data-url= "/admon/reporte-entradas-producto/">
+      &#128424;Imprimir
+    </button>
+   </div>
+   
+
+
+  </div>
+
+  <div class="pollito"></div>
+
+
+  <div class="container my-3">
+    <table id="datosdetalle" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Codigo</th>
+          <th>Fecha</th>
+          <th>Producto</th>
+          <th>Descuentos</th>
+          <th>Cantidad Compra</th>
+          <th>Precio Compra</th>
+          <th>Precio Venta</th>
+          <th>Total</th>
+          
+        </tr>
+      </thead>
+      <tbody id="tablaBody" class="text-white">
+        {% for registro in compra_detalle %}
+          <tr data-id="{{ detalle.id_detalle_compra }}">
+            <td>{{ registro.id_detalle_compra }}</td>
+            <td>{{ registro.fk_compra.fecha_compra|date:"Y-m-d" }}</td>
+            <!-- <td>{{ registro.no_lote }}</td> -->
+            <td>{{ registro.fk_producto.nombre_producto }}</td>
+            <td>Q {{ registro.descuentos }}</td>
+            <td>{{ registro.cantidad_compra }}</td>
+            <td>Q {{ registro.precio_unitario_compra }}</td>
+            <td>Q {{ registro.precio_sugerido_venta }}</td>
+            <td>Q {{ registro.sub_total }}</td>
+            
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tablaPrueba"></div>
+
+  <!-- Modal para agregar un nuevo producto -->
+
+
+  <!-- ! USANDO TABLE -->
+
+  <span id="mensajemarca"></span>
+
+ <!--  MODAL DE DETALLES DE PRODUCTO -->
+
+
+
+
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <!-- <script type="module" src="{% static 'js/nuevoProducto.js' %}"></script> -->
+  <!-- <script type="module" src="{% static 'js/el_buen_precio/detallescatalogopro.js' %}"></script> -->
+  
+  <script type="module" src="{% static 'js/control-entrada-compra.js' %}"></script>
+  <script type="module" src="{% static 'js/reportesimprimir.js' %}"></script>
+{% endblock %}

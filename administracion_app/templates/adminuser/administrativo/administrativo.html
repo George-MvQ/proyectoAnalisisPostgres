@@ -1,0 +1,98 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block title %}
+  Modulo Administrativo
+{% endblock %}
+
+
+{% block lista_ruta %}
+<li class="nav-item" style="margin-left: 1%";>
+  <a class="nav-link text-white text-white" aria-current="page" href="{% url 'empleado_nuevo' %}">Agregar Empleado</a>
+</li>       
+{% endblock  %}
+
+{% block link %}
+  <!-- carga de archivo css general -->
+
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/adminstyle.css' %}" />
+  
+{% endblock %}
+
+{% block body %}
+  <h1 class="titulo">GESTION DE USUARIO</h1>
+  <button class="btn btn-danger ms-3" id = "btn_imprimir" data-url= "/admon/reporte-usuarios/">
+    &#128424;Imprimir
+</button>
+   <br>
+   <br>
+   
+  {% comment %}TABLA DE DATOS{% endcomment %}
+  <div class="table-responsive">
+    <table id="tbDatosUsuarios" class="table table-hover table-responsive">
+      <thead>
+        <tr class="text-center align-middle text-white font-weight-bold">
+          <th>Id</th>
+          <th>Usuario</th>
+          <th>email</th>
+          <th>superusuario</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+
+      <tbody id="tablaBody" class = "text-white">
+        {% for usuario in datos %}
+          <tr data-id="{{ usuario.id }}">
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.is_superuser|yesno:'Sí,No' }}</td>
+            <td>
+              <button class="btn-espacio btn-eliminar-usuario btn btn-outline-danger" data-id="{{ usuario.id }}">Eliminar</button>
+              <a class="btn btn-outline-info" href="{% url 'detalles_usuario' usuario.id %}">Detalles</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% comment %}SECCION MODAL{% endcomment %}
+  <div class="modal fade otraClase  " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVO USUARIO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form  method="POST" id="form_usuario">
+            {% csrf_token %}
+            {% load bootstrap5 %}
+            {% bootstrap_form form %}
+           {% buttons %}
+             <button id="btGuardarDato" type="submit" class="btn btn-primary">Guardar</button>
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+           {% endbuttons %}
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+    <script type="module" src="{% static 'js/libreria/popper.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/tippy.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/administracion_app/jsmenuadmin.js' %}"></script>
+  <script type="module" src="{% static 'js/reportesimprimir.js' %}"></script>
+{% endblock %}

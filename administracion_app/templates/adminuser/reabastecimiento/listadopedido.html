@@ -1,0 +1,103 @@
+{% extends 'shared/menu_lateral.html' %}
+
+{% block title %}
+  Listado de Pedidos
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--   <script src="{% static 'js/jquery.min.js' %}"></script>
+           --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/gridjs.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <h2>LISTADO DE PEDIDOS</h2>
+  <!--    <div class="container botonFormulario" id="meter">
+    <button id="btnAgregdarMarca" type="button" class="btn btn-primary adelante" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</button>
+  </div>  -->
+
+  <div class="pollito"></div>
+
+
+{% comment %}   <p>{{ datos }}</p> {% endcomment %}
+  <div class="container my-3">
+    <table id="datoslistado" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id Listado</th>
+          <th>Fecha Creacion</th>
+          <th>Empleado</th>
+          <th>Estado</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody" class="text-white">
+        {% for listado in datos %}
+          <tr data-id="{{ listado.0 }}">
+            <td>{{ listado.0 }}</td>
+            <td>{{ listado.1}}</td>
+            <td>{{ listado.2}}</td>
+            <td>{{ listado.estado |yesno:'Activo,Inactivo'}}</td>
+            <td>
+              <button class="btn-espacio btn-eliminar-listado btn btn-outline-danger" data-id="{{ listado.id_listado }}">Eliminar</button>
+              <button class="btn-detalles-usuario btn btn-outline-info" data-id="{{ categoria.id_categoria }}">Detalles</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade otraClase" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVO LISTADO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="" id="form_agregar_listado" method="POST">
+            <!-- {% csrf_token %}
+            {{ form.fecha_creacion.label_tag }}
+            {{ form.fecha_creacion }}
+            {{ form.empleado.label_tag }}
+            {{ form.empleado }}
+            {{ form.estado.label_tag }}
+            {{ form.estado }} -->
+            {% csrf_token %}
+          {% load bootstrap5 %}
+           {% bootstrap_form form %}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="btGuardarListado" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div id="tablaPrueba"></div>
+
+  <!-- ! USANDO TABLE -->
+
+  <span id="mensajemarca"></span>
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/popper.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/tippy.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/listado.js' %}"></script>
+  
+{% endblock %}

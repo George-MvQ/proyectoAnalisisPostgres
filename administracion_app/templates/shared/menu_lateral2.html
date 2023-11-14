@@ -1,0 +1,69 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block link %}
+  <!-- carga de archivo css general -->
+  {% load static %}
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/adminstyle.css' %}" /> -->
+{% endblock %}
+
+{% block body %}
+  <div class="pruebaPepito">
+    <div>
+      <nav class="nav flex-column nav-pills barra">
+        <div class="sidebar">
+          <ul>
+            <a href="{% url 'inventario_productos' %}" class="nav-link px-1">
+              <!-- Aca metemos los links de los index -->
+              <span class="me-2"><i class="bi bi-file-earmark-plus"></i></span>
+              <span>Inventario Productos</span>
+            </a>
+            <!-- Aqui empieza el Primer bloque -->
+            <li>
+              <a class="medida" class="nav-link px-3" data-bs-toggle="collapse" href="#layouts">
+                <span class="me-2"><i class="bi bi-cart4"></i></span>
+                <span>Movimientos</span>
+                <span class="ms-auto"><span class="right-icon"><i class="bi bi-chevron-down custom-icon2"></i></span></span>
+              </a>
+              <div class="collapse" id="layouts">
+                <ul class="navbar-nav ps-3">
+                  <li>
+                    <a href="{% url 'historial_ventas_admin' %}" class="nav-link px-1">
+                      <!-- Aca metemos los links de los index -->
+                      <span class="me-2"><i class="bi bi-cart-plus"></i></span>
+                      <span>Ventas</span>
+                    </a>
+                    <a href="{% url 'historial_entradas' %}" class="nav-link px-1">
+                      <!-- Aca metemos los links de los index -->
+                      <span class="me-2"><i class="bi bi-cart-plus"></i></span>
+                      <span>Entradas</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <!-- Aqui empieza el Segundo bloque -->
+            <li>
+              <a href="{% url 'balance_caja' %}" class="nav-link px-1">
+                <!-- Aca metemos los links de los index -->
+                <span class="me-2"><i class="bi bi-cart-plus"></i></span>
+                <span>Balance de Caja</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'analisis_grafica' %}" class="nav-link px-1">
+                <!-- Aca metemos los links de los index -->
+                <span class="me-2"><i class="bi bi-clipboard-data"></i></span>
+                <span>Analisis Grafica</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div>
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

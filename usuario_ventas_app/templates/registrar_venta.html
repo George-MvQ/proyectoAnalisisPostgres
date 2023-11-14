@@ -1,0 +1,140 @@
+{% extends 'shared/menu_ventas.html' %}
+
+{% block title %}
+  Registrar venta
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--      <script src="{% static 'js/jquery.min.js' %}"></script>
+              --> <!-- css -->
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/usuario_ventas_app/ventas.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h2>Registro De Ventas</h2>
+    <br/>
+    <div class="ms-5">
+      <div class="col-10">
+        <div class="row g-3">
+          <div class="col-sm">
+            <label for="" class="form-label">Empleado</label>
+            <input id="empleado" type="text" class="form-control" aria-label="State" data-id="{{ user.id }}" value="{{ user.username }}" readonly />
+          </div>
+
+          <div class="col-sm-3">
+            <label for="" class="form-label">Fecha Compra</label>
+            <input id="fechaVenta" type="date" class="form-control" aria-label="City" />
+          </div>
+        </div>
+      </div>
+
+      <form id="formulario_venta" class="needs-validation" novalidate>
+        <div class="col-10">
+          <br/>
+
+          <div class="row g-3">
+            <div class="col-sm">
+              {% load bootstrap5 %}
+              {% bootstrap_form form %}
+
+              {% comment %} <label for="producto" class="form-label">Producto</label> {% endcomment %}
+              {% comment %} <select class="form-select" id="producto" name="producto" aria-label="Producto">
+                <option value="producto1">Producto 1</option>
+                <option value="producto2">Producto 2</option>
+                <option value="producto3">Producto 3</option>
+              </select> {% endcomment %}
+            </div>
+
+            <div class="col-sm-3">
+              <label for="" class="form-label">Stock</label>
+              <input id="total_stock" type="number" class="form-control" placeholder="stock" aria-label="State" readonly />
+            </div>
+
+          </div>
+
+          <br />
+          <div class="row g-3">
+
+            <div class="col-sm">
+              <label for="" class="form-label">Cantidad</label>
+              <input name="cantidad_producto" id="cantidad_producto" type="number" class="form-control" placeholder="Cantidad" aria-label="State" />
+            </div>
+
+            <div class="col-sm">
+              <label for="" class="form-label">Precio</label>
+              <input name="precio_unitario" id="precio_unitario" type="number" class="form-control" placeholder="Precio" aria-label="City" readonly />
+            </div>
+
+            <div class="col-sm">
+              <label for="" class="form-label">Descuento</label>
+              <input name="descuento" id="descuento" type="number" class="form-control" placeholder="cantidad" aria-label="Zip" />
+            </div>
+
+          </div>
+        </div>
+      </form>
+      <br />
+      <button id="agregarVenta" type="button" class="btn btn-outline-primary">Agregar</button>
+    </div>
+
+    <div class="container my-3">
+      <table id="registroVentas" class="table table-striped text-white">
+        <thead>
+          <tr>
+            <th class="text-white font-weight-bold columna">Codigo</th>
+            <th class="text-white font-weight-bold columna">Descripcion</th>
+            <th class="text-white font-weight-bold columna">Cantidad</th>
+            <th class="text-white font-weight-bold columna">Precio Unitario</th>
+            <th class="text-white font-weight-bold columna">Descuento</th>
+            <th class="text-white font-weight-bold columna">Subtotal</th>
+            <th class="text-white font-weight-bold columna">Opciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaBody" class="text-white"></tbody>
+      </table>
+    </div>
+
+    <div class="col-9 ms-5">
+      <div class="row g-3">
+        <div class="col-sm">
+          <label for="" class="form-label">Efectivo</label>
+          <input type="number" class="form-control" id="sp_efectivo" placeholder="efectivo" aria-label="State" />
+        </div>
+        <div class="col-sm">
+          <label for="" class="form-label">Total</label>
+          <input type="number" class="form-control" id="sp_total_monto_venta" placeholder="Total" aria-label="State" readonly />
+        </div>
+        <div class="col-sm">
+          <label for="" class="form-label">Vuelto</label>
+          <input type="number" class="form-control" id="sp_total_monto_pago" placeholder="vuelto" {% comment %} aria-label="City"  {% endcomment %}/>
+        </div>
+      </div>
+      <br />
+      <button type="button" class="btn btn-outline-success ml-2"id="guardarVentas">Guardar Ventas</button>
+      <button type="button" class="btn btn-outline-warning" id="btn_imprimir">Generar Comprobante</button>
+      <button type="button" class="btn btn btn-outline-danger ml-2" id="limpiarinputs">Cancelar venta</button>
+    </div>
+    <br />
+
+    <br />
+  </div>
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+
+  <!-- <script type="module" src="{% static 'js/reportesimprimir.js' %}"></script> -->
+  <script type="module" src="{% static 'js/mod_ventas/registros_ventas.js' %}"></script>
+{% endblock %}

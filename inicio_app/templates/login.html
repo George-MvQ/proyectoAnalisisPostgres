@@ -1,0 +1,39 @@
+{% extends './base.html' %}
+{% block title %}
+  Login
+{% endblock %}
+
+{% load static %}
+{% block link %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/inicio_app/login.css' %}" />
+  <!-- css -->
+{% endblock %}
+
+{% block body %}
+  <form class="login" method="POST">
+    {% csrf_token %}
+    <img class="icono" id="logo" src="{% static 'images/logo.png' %}" alt="" /><hr>
+    <h2 class="inicio" id="heading">Iniciar Sesión</h2>
+
+    <div class="field">
+      <!--  -
+        <label for="usuario">Usuario:</label>
+        <input  class="input-field" type="text" id="username" name="username" required><br><br>
+         -->
+      {{ form.username.label_tag }}
+      {{ form.username }}<br /><br />
+    </div>
+
+    <div class="field">
+      <!--  
+        <label for="contrasena">Contraseña:</label>
+        <input  class="input-field" type="password" id="password" name="password" required><br><br>
+     -->
+      {{ form.password.label_tag }}
+      {{ form.password }} <br /><br />
+    </div>
+    <div>
+      <input class="button" type="submit" value="Iniciar Sesión" />
+    </div>
+  </form>
+{% endblock %}

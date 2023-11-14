@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+
+      {% endblock %}
+    </title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <!-- css generales -->
+    {% load static %}
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/dashboard.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="{% static 'css/libs/font-awesome.css' %}" />
+    
+    <!-- bloque espesifico de css -->
+    {% block link %}
+
+    {% endblock %}
+  </head>
+
+  <body>
+    
+    <header id="id-header">
+      {% load static %}
+      <ul class="nav nav-underline" id="idnav" style="margin-left: 4%">
+        <img id="icon-store" src="{% static 'images/logo.png' %}" alt="" width="auto" height="40" />
+        <li class="nav-item" style="margin-left: 5%";>
+          <a class="nav-link text-white text-white" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'panel_principal' %}">Modulos</a>
+        </li>
+        {% block lista_ruta %}
+        {% endblock  %}
+      </ul>
+    </header>
+
+    <section class="principal">
+      {% block body %}
+
+      {% endblock %}
+    </section>
+
+    <footer>
+      <p>Surtidora el Buen Precio</p>
+    </footer>
+    {% load static %}
+    <script src="{% static 'js/sweetAlert2.js' %}"></script>
+    {% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/menulateral/menulateral.js' %}"></script>
+    {% endblock %}
+  </body>
+</html>

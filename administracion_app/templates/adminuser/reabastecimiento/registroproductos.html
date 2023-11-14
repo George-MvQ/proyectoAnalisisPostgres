@@ -1,0 +1,110 @@
+{% extends 'shared/menu_lateral.html' %}
+
+{% block title %}
+Registro de Productos
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--  <script src="{% static 'js/jquery.min.js' %}"></script>
+          --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/gridjs.css' %}" />
+          
+  {% endblock %}
+
+{% block content %}
+  <h2>REGISTRO COMPRAS</h2>
+
+  <button class="btn btn-danger" id = "btn_imprimir" data-url= "/admon/reporte-compras/">
+    &#128424;Imprimir
+</button>
+
+  <div class="container my-3">
+    <table id="datoscompra" class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-white font-weight-bold">Id Compras</th>
+          <th class="text-white font-weight-bold">Fecha Compra</th>
+          <th class="text-white font-weight-bold">Proveedores</th>
+          <th class="text-white font-weight-bold">Empleado</th>
+          <th class="text-white font-weight-bold">Metodo Pago</th>
+          <th class="text-white font-weight-bold">Opciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody">
+        {% for compra in datos %}
+        <tr data-id="{{ compra.0 }}">
+          <td>{{ compra.0 }}</td>
+          <td>{{ compra.1 }}</td>
+          <td>{{ compra.2 }}</td>
+          <td>{{ compra.3 }}</td>
+          <td>{{ compra.4 }}</td>
+          <td>
+            <button class="btn-espacio btn-eliminar-compra btn btn-outline-danger" data-id="{{ compra.0 }}">Eliminar</button>
+            <a class="btn btn-outline-info" href="{% url 'detalle_compras' compra.0 %}" data-id="{{ compra.0}}">Detalles</a>
+            <a class="btn btn-outline-warning" href="{% url 'agregar_compras' compra.0 %}" data-id="{{ compra.0 }}">Agregar</a>
+            <!-- {% comment %} <button class="btn-detalles-usuario btn btn-outline-info" data-id="{{ compra.id_compra }}">Detalles</button> {% endcomment %} -->
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade otraClase" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVA COMPRA</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form_body" id="form_agregar_compra" method="POST">
+            {% csrf_token %}
+            <!-- {{ form.fechaCompra.label_tag }}
+            {{ form.fechaCompra }}
+            {{ form.proveedor.label_tag }}
+            {{ form.proveedor }}
+            {{ form.empleado.label_tag }}
+            {{ form.empleado }}
+            {{ form.metodopago.label_tag }}
+            {{ form.metodopago }}
+            {{ form.observaciones.label_tag }}
+            {{ form.observaciones }} -->
+            {% load bootstrap5 %}
+            {% bootstrap_form form %}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="btGuardarCompra" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+  <div id="tablaPrueba"></div>
+
+  <!-- ! USANDO TABLE -->
+
+  <span id="mensajemarca"></span>
+
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/popper.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/tippy.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/registroproducto.js' %}"></script>
+  <script type="module" src="{% static 'js/reportesimprimir.js' %}"></script>
+ 
+{% endblock %}

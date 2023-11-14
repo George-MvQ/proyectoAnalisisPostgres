@@ -1,0 +1,99 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block title %}
+  Detalle de  Producto
+{% endblock %}
+
+{% block link %}
+  <!-- carga de archivo css general -->
+
+  {% load static %}
+ 
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/adminstyle.css' %}" />
+
+  {% endblock %}
+
+{% block body %}
+
+  <div class="container mt-5">
+    
+    <div class="text-dark bg-light rounded p-4">
+
+      <div class="row">
+        <div class="col-md-6">
+          <h1 id="sp_nombre_producto" >{{ producto.nombre_producto }}</h1>
+          <hr class="border border-primary border-3 opacity-75" />
+          <p class="border p-2">
+            <span class="fw-bold">Id Producto: </span><span id="sp_id_productos">{{ producto.id_productos }}</span>
+          </p>
+            <p class="border p-2">
+                <span class="fw-bold">Descripcion: </span><span id="sp_descripcion" >{{ producto.descripcion }}</span>
+            </p>
+            <p class="border p-2">
+                <span class="fw-bold">Codigo de Barras: </span><span id="sp_codigo_barras" >{{ producto.codigo_barras }}</span>
+            </p>
+            <p class="border p-2">
+                <span class="fw-bold">Tamaño: </span><span id="sp_tamanio" >{{ producto.tamanio }}</span>
+            </p>
+          <p class="border p-2">
+            <span class="fw-bold">Estado: </span><span id="sp_estado" >{{ producto.estado|yesno:'Sí,No' }}</span>
+          </p>
+
+        </div>
+        
+        <div class="col-md-6 pt-5 mt-4">
+           <br>
+          <p class="border p-2">
+            <span class="fw-bold">Presentacion: </span><span id="sp_fk_presentacion">{{ producto.fk_presentacion.nombre_presentacion}}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Unidad de Medida: </span><span id="sp_fk_unidad_medida">{{ producto.fk_unidad_medida.prefijo}}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Categoría: </span><span id="sp_fk_categoria">{{ producto.fk_categoria.nombre_categoria}}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Marca: </span><span id="sp_fk_marca">{{ producto.fk_marca.nombre_marca}}</span>
+          </p>
+        </div>
+      </div>
+      <br />
+      <hr class="my-4"/>
+    </div>
+    <br />
+    <a class="btn btn-info" href="{% url 'productos_nuevos' %}">Regresar</a>
+    <a href="" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">Modificar</a>
+  </div>
+
+  <!-- Modal para Actualizar producto -->
+
+  <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content row">
+        <div class="modal-header">
+          <h5 class="modal-title text-dark" id="modalLabel">Editar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-dark">
+          <form class="form_body" id="form_actualizar">
+            {% csrf_token %}
+            {% load bootstrap5 %}
+             {% bootstrap_form form %}
+           
+            {% buttons %}
+            <button id="btn_actualizar" type="submit"   data-id = "{{producto.id_productos}}" class="btn btn-primary">Actualizar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          {% endbuttons %}
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block script %}
+  {% load static %}
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/modal_actualizacion.js' %}"></script>
+  
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block title %}
+  Detalle Compra
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--    <script src="{% static 'js/jquery.min.js' %}"></script>
+            --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+  
+{% endblock %}
+
+{% block body %}
+<br>
+  <div class="container">
+    <br>
+    <div class="text-white color-info rounded p-4">
+      <h1 id="sp_username">No de Compra: "{{ compra.id_compra }}" - Proveedor: {{ compra.fk_proveedor.nombre_proveedor }}</h1>
+      <hr class="border border-primary border-3 opacity-75" />
+      
+      <div class="row">
+        <div class="col-md-6">
+          <p class="border p-2">
+            <span class="fw-bold">No Compra: </span><span id="sp_id">{{ compra.id_compra }}</span>
+          </p>
+
+          <p class="border p-2">
+            <span class="fw-bold">Fecha Compra: </span><span id="sp_is_superuser">{{ compra.fecha_compra }}</span>
+          </p>
+
+          <p class="border p-2">
+            <span class="fw-bold">Proveedor: </span><span id="sp_email">{{ compra.fk_proveedor.nombre_proveedor }}</span>
+          </p>
+
+        </div>
+
+        <div class="col-md-6 ">
+          <p class="border p-2">
+            <span class="fw-bold">Solicitante: </span><span id="sp_is_active">{{ compra.fk_empleado.primer_nombre }} {{detalles.fk_empleado.primer_apellido}} </span>
+          </p>
+
+          <p class="border p-2">
+            <span class="fw-bold">Metodo de Pago: </span><span id="sp_date_joined">{{ compra.fk_metodo_pago.nombre }}</span>
+          </p>
+
+          <p class="border p-2">
+            <span class="fw-bold">Detalles: </span><span id="sp_date_joined">{{ compra.observaciones  }}</span>
+          </p>
+        </div>
+
+      </div>
+      <br />
+      <hr class="my-4" />
+    </div>
+    <br />
+    <a class="btn btn-info" href="{% url 'compras' %}">Regresar</a>
+
+    <div class="pollito"></div>
+    <br>
+    <div>
+      <table id="datosdetalle" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Codigo</th>
+            <th>No lote</th>
+            <th>Producto</th>
+            <th>Descuentos</th>
+            <th>Cantidad Compra</th>
+            <th>Precio Compra</th>
+            <th>Precio Venta</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="tablaBody" class="text-white">
+          {% for registro in detalles %}
+            <tr data-id="{{ detalle.0 }}">
+              <td>{{ registro.id_detalle_compra }}</td>
+              <td>{{ registro.no_lote }}</td>
+              <td>{{ registro.fk_producto.nombre_producto }}"</td>
+              <td>Q {{ registro.descuentos }}</td>
+              <td>{{ registro.cantidad_compra }}</td>
+              <td>Q {{ registro.precio_unitario_compra }}</td>
+              <td>Q {{ registro.precio_sugerido_venta }}</td>
+              <td>Q {{ registro.c_total }}</td>
+              
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="contenedor-totales">
+      <h4> Total sin descuento: Q {{total_sin_descuneto|default_if_none:"0.00"}}</h4>
+      <h4>Total descuento: Q {{total_descuento|default_if_none:"0.00"}}</h4>
+      <hr>
+      <h3>Total a pagar: Q {{total_pago|default_if_none:"0.00"}}</h3>
+    </div>
+
+    <div class="modal fade otraClase" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content text-black">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVO DETALLE COMPRA</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="form_body" id="form_agregar_marca" method="POST">
+              {% csrf_token %}
+              {{ form.producto.label_tag }}
+              {{ form.producto }}
+              {{ form.compras.label_tag }}
+              {{ form.compras }}
+              {{ form.descuentos.label_tag }}
+              {{ form.descuentos }}
+              {{ form.cantidad.label_tag }}
+              {{ form.cantidad }}
+              {{ form.preciounitario.label_tag }}
+              {{ form.preciounitario }}
+              {{ form.preciosugerido.label_tag }}
+              {{ form.preciosugerido }}
+              {{ form.numerolote.label_tag }}
+              {{ form.numerolote }}
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button id="btGuardarMarca" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div id="tablaPrueba"></div>
+
+    <!-- ! USANDO TABLE -->
+
+    <span id="mensajemarca"></span>
+  </div>
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/detallecompra.js' %}"></script>
+{% endblock %}

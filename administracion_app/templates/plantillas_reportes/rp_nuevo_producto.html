@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilosreportes.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <header>
+
+            <div class="division"> 
+                <table>
+                  <tr>
+                    <th class="centered-cell"> 
+                      <div> 
+                        {% load static %}
+                        <img id="icon-store" class="logo" src="{% static 'images/logo_negro.png' %} "/>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="segundo">
+                        <p>Sololá. Zona 1, 05 Av 10-038 Barrio el Carmen</p>
+                        <p>Teléfono: 7762 3034</p>
+                        <p>Correo electrónico lasurtidorabuenprecio@gmail.com</p>
+                  
+                      </div> 
+                    </th>
+                    
+                    <th class=""> 
+                      <p>Fecha de Reporte</p>
+                      <p class="fecha">{{datos.fecha}}</p>
+
+                    </th>
+                  </tr>
+                </table>
+                <h1 class="titulo">REGISTROS DE PRODUCTOS</h1>
+            </div>   
+  
+        </header>
+
+        <div class="container my-3 contenedor-tabla">
+            <table id="datosmarca" class="table table-striped">
+          <thead>
+            <tr>
+                <th class="encabezado">Id Producto</th>
+                <th class="encabezado">Producto</th>
+                <th class="encabezado">Descripcion</th>
+                <th class="encabezado">Cod barras</th>
+                <th class="encabezado">Tamaño</th>
+                <th class="encabezado">Presentacion</th>
+                <th class="encabezado">Unidad de Medida</th>
+                <th class="encabezado">Categoria</th>
+                <th class="encabezado">Marcas</th>
+                <th class="encabezado">Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tablaBody" class="bg-">
+          {% for registro in datos.data %}
+          <tr data-id="{{ registro.id_productos}">
+            <td class="centrar" >{{ registro.id_productos }}</td>
+            <td class="centrar" >{{ registro.nombre_producto }}</td>
+            <td class="centrar" >{{ registro.descripcion }}</td>
+            <td class="centrar" > {{ registro.codigo_barras }}</td>
+            <td class="centrar" >{{ registro.tamanio }}</td>
+            <td class="centrar" > {{ registro.fk_presentacion.nombre_presentacion }}</td>
+            <td class="centrar" > {{ registro.fk_unidad_medida.prefijo }}</td>
+            <td class="centrar" > {{ registro.fk_categoria.nombre_categoria }}</td>
+            <td class="centrar" > {{ registro.fk_marca.nombre_marca }}</td>
+            <td class="centrar" > {{ registro.estado|yesno:'Activo,Inactivo' }}</td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <footer>
+
+     
+    </footer>
+   
+</body>
+
+</html>

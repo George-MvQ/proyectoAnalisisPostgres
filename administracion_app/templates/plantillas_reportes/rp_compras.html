@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilosreportes.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <header>
+
+            <div class="division"> 
+                <table>
+                  <tr>
+                    <th class="centered-cell"> 
+                      <div> 
+                        {% load static %}
+                        <img id="icon-store" class="logo" src="{% static 'images/logo_negro.png' %} "/>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="segundo">
+                        <p>Sololá. Zona 1, 05 Av 10-038 Barrio el Carmen</p>
+                        <p>Teléfono: 7762 3034</p>
+                        <p>Correo electrónico lasurtidorabuenprecio@gmail.com</p>
+                  
+                      </div> 
+                    </th>
+                    
+                    <th class=""> 
+                      <p>Fecha de Reporte</p>
+                      <p class="fecha">{{datos.fecha}}</p>
+
+                    </th>
+                  </tr>
+                </table>
+                <h1 class="titulo">REGISTROS DE COMPRAS</h1>
+            </div>   
+  
+        </header>
+
+        <div class="container my-3 contenedor-tabla">
+            <table id="datosmarca" class="table table-striped">
+          <thead>
+            <tr>
+                <th class="encabezado" >Codigo</th>
+                <th class="encabezado" >No lote</th>
+                <th class="encabezado" >Producto</th>
+                <th class="encabezado" >Descuentos</th>
+                <th class="encabezado" >Cantidad Compra</th>
+                <th class="encabezado" >Precio Compra</th>
+                <th class="encabezado" >Precio Venta</th>
+                <th class="encabezado" >Total</th>
+            </tr>
+          </thead>
+          <tbody id="tablaBody" class="">
+          {% for registro in datos.data %}
+          <tr data-id="{{ registro.id_detalle_compra}}">
+            <td class="centrar" >{{ registro.id_detalle_compra }}</td>
+            <td class="centrar" >{{ registro.no_lote }}</td>
+            <td class="centrar" >{{ registro.fk_producto.nombre_producto }}"</td>
+            <td class="centrar" >Q {{ registro.descuentos }}</td>
+            <td class="centrar" >{{ registro.cantidad_compra }}</td>
+            <td class="centrar" >Q {{ registro.precio_unitario_compra }}</td>
+            <td class="centrar" >Q {{ registro.precio_sugerido_venta }}</td>
+            <td class="centrar" >Q {{ registro.cantidad_compra|mul:registro.precio_unitario_compra|sub:registro.descuentos }}</td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <footer>
+
+    
+    </footer>
+   
+</body>
+
+</html>

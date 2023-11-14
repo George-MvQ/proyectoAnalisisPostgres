@@ -1,0 +1,71 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Estilos para hacerlo responsivo */
+.meta-viewport {
+    width: device-width;
+    initial-scale: 1.0;
+}
+
+.inicio_seccion {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 75% 25%;
+    gap: 20px; /* Espacio entre las filas */
+}
+
+.division1 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 20px; /* Espacio entre las columnas */
+}
+
+#logotienda {
+    max-width: 40%; /* Ajusta automáticamente el tamaño de la imagen al 100% del contenedor */
+    height: auto;
+    width: auto; /* Deja que el ancho se ajuste automáticamente según la relación de aspecto */
+}
+
+.transparente{
+/*     background-color:rgba(0, 0, 0, 0.041); */
+    padding: 1px;
+    border-radius: 3px;
+    margin-top: 10%;
+}
+.logotipo{
+/*     background-color:rgba(0, 0, 0, 0.041); */
+    padding: 1px;
+    border-radius: 3px;
+    margin-top: 10%;
+
+}
+@media screen and (max-width: 768px) {
+    .inicio_seccion {
+        grid-template-rows: auto auto;
+    }
+
+    .division1 {
+        grid-template-columns: 100%;
+        text-align: center; 
+    }
+
+    #logotienda {
+        max-width: 55%; 
+    }
+
+    #pbienvenida,
+    #p2bienvenida {
+        font-size: 25px; 
+    }
+
+    .division1 > div {
+        margin-bottom: 10px;
+    }
+}
+
+

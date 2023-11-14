@@ -1,0 +1,109 @@
+
+  .login{
+    width: 350px; 
+    height: 430px;
+    background-color: #0f171a70;
+    padding: 70px 40px;     
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    
+  }
+
+  .field label {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    display: block;
+  }
+  
+ 
+
+  .inicio{
+    color:#fff;
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+  
+  }
+
+  .field input {
+    width: 100%;
+    border-radius: 0.375rem;
+/*     border: 1px solid rgba(55, 65, 81, 1); */
+    outline: 0;
+    background-color: rgba(17, 24, 39, 1);
+    padding: 0.75rem 1rem;
+    color: rgba(243, 244, 246, 1);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .input-field:focus {
+    color: rgb(0, 255, 255);
+/*     background-color: #212121; */
+    outline-color: rgb(0, 255, 255);
+/*     box-shadow: -3px -3px 15px rgb(0, 255, 255); */
+    border:2px solid white;
+    transition: .1s;
+    transition-property: box-shadow;
+  }
+
+  .button {
+    position: relative;
+    width: 10em;
+    height: 40px;
+    border: 3px ;
+    outline: none;
+    background-color: rgba(17, 24, 39, 1);
+    color: white;
+    transition: 1s;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    left: 20%;
+  }
+  
+  .button::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    background-color: rgba(17, 24, 39, 1);
+    transition: 0.5s;
+    transform-origin: center;
+  }
+  
+  .button::before {
+    content: "";
+    transform-origin: center;
+    position: absolute;
+    top: 80%;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    background-color: #212121;
+    transition: 0.5s;
+  }
+  
+  .button:hover::before, button:hover::after {
+    transform: scale(0)
+  }
+  
+  .button:hover {
+    background-color: rgba(17, 24, 39, 0.671);
+  }
+
+
+  .login .icono{
+    width: 170px;
+    height: 62px;
+    position: absolute;
+    top: 20px;
+    left: calc(50% - 90px);
+    
+  }

@@ -1,0 +1,164 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block title %}
+  Detalle Compra
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--    <script src="{% static 'js/jquery.min.js' %}"></script>
+            --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/gridjs.css' %}" />
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <br>
+    <p>compra pp</p>
+    <p>{{compra}}</p>
+    <div class="text-white color-info rounded p-4">
+      <h1 id="sp_username">No de Compra: "{{ compra.id_compra }}" - Proveedor: {{ compra.fk_proveedor.nombre_proveedor }}</h1>
+      <hr class="border border-primary border-3 opacity-75" />
+      
+      <div class="row">
+        <div class="col-md-6">
+          <p class="border p-2">
+            <span class="fw-bold">No Compra: </span><span id="sp_id">{{ compra.id_compra }}</span>
+          </p>
+
+          <p class="border p-2">
+            <span class="fw-bold">Fecha Compra: </span><span id="sp_is_superuser">{{ compra.fecha_compra }}</span>
+          </p>
+
+          <p class="border p-2">
+            <span class="fw-bold">Proveedor: </span><span id="sp_email">{{ compra.fk_proveedor.nombre_proveedor }}</span>
+          </p>
+
+        </div>
+
+        <div class="col-md-6 ">
+          <p class="border p-2">
+            <span class="fw-bold">Solicitante: </span><span id="sp_is_active">{{ compra.fk_empleado.primer_nombre }} {{detalles.fk_empleado.primer_apellido}} </span>
+          </p>
+
+          <p class="border p-2">
+            <span class="fw-bold">Metodo de Pago: </span><span id="sp_date_joined">{{ compra.fk_metodo_pago.nombre }}</span>
+          </p>
+
+          <p class="border p-2">
+            <span class="fw-bold">Detalles: </span><span id="sp_date_joined">{{ compra.observaciones  }}</span>
+          </p>
+        </div>
+      </div>
+      <br />
+      <hr class="my-4" />
+    </div>
+    <br />
+   <!--  <a class="btn btn-info float-left mr8 float-right mr10" href="{% url 'compras' %}">Regresar</a>  -->
+
+    <div class="pollito"></div>
+    <br>
+    <div>
+      <table id="datosdetalle" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Codigo</th>
+            <th>No lote</th>
+            <th>Producto</th>
+            <th>Descuentos</th>
+            <th>Cantidad Compra</th>
+            <th>Precio Compra</th>
+            <th>Precio Venta</th>
+            <th>Sub total</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaBody" class="text-white">
+        </tbody>
+      </table>
+    </div>
+    <hr>
+
+    <div class="contenedor-totales">
+      <h4 id="hTotal_sin_descuento"> Total sin descuento: Q 0.00</h4>
+      <h4 id="hTotal_descuento">Total descuento: Q 0.00</h4>
+      <hr>
+      <h3 id="hTotal_pagar">Total a pagar: Q 0.00</h3>
+    </div>
+    {% comment %}SECCION MODAL{% endcomment %}
+
+    <a class="btn btn-info moverboton" href="{% url 'compras' %}">Regresar</a>
+    
+  </div>
+
+  {% comment %} modal formulario para ingreso de datos {% endcomment %} 
+  <div class="modal fade otraClase  " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVO REGISTRO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form_body"  method="POST" id="form_compra_producto">
+            {% csrf_token %}
+            {% load bootstrap5 %}
+            {% bootstrap_form form %}
+           {% buttons %}
+             <button id="btGuardarDato" type="submit" data-id="{{compra.id_compra}}" class="btn btn-primary">Guardar</button>
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+           {% endbuttons %}
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <br />
+    <br />
+    <div id="tablaPrueba"></div>
+    <span id="mensajemarca"></span>
+  </div>
+
+  {% comment %} formulario modal actualizacion {% endcomment %} 
+  <div class="modal fade otraClase  " id="modal_actualizar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">ACTUALIZAR REGISTRO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form_body"  method="POST" id="form_actualizar" data-id = "{{compra.id_compra}}" >
+            {% csrf_token %}
+            {% load bootstrap5 %}
+            {% bootstrap_form form_actualizar %}
+           {% buttons %}
+             <button id="btn_actualizar" type="button" data-id="{{compra.id_compra}}" class="btn btn-primary">Actualizar</button>
+             <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+           {% endbuttons %}
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <br />
+    <br />
+    <div id="tablaPrueba"></div>
+    <span id="mensajemarca"></span>
+  </div>
+ 
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/agregar-compras.js' %}"></script>
+{% endblock %}
+

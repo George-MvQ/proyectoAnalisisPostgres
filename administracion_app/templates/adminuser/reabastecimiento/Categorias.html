@@ -1,0 +1,148 @@
+{% extends 'shared/menu_lateral.html' %}
+
+{% block title %}
+  Categorias
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--   <script src="{% static 'js/jquery.min.js' %}"></script>
+           --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/gridjs.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <h2>INGRESO CATEGORIAS</h2>
+  <button class="btn btn-danger" id = "btn_imprimir" data-url= "/admon/reporte-categoria/">
+    &#128424;Imprimir
+  </button>
+  <!--    
+  <div class="container botonFormulario" id="meter">
+    <button id="btnAgregdarMarca" type="button" class="btn btn-primary adelante" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</button>
+  </div>  
+  -->
+  <div class="pollito"></div>
+
+  <!-- <p>{{ datos }}</p> -->
+  <div class="container my-3">
+    <table id="datoscategoria" class="table table-striped">
+      <thead>
+        <tr class="text-center align-middle text-white font-weight-bold">
+          <th>Id Categoria</th>
+          <th>Nombre Categoria</th>
+          <th>Descripcion</th>
+          <th>Estado</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody" class="text-white">
+        {% for categoria in datos %}
+          <tr data-id="{{ categoria.id_categoria}}">
+            <td>{{ categoria.id_categoria }}</td>
+            <td>{{ categoria.nombre_categoria }}</td>
+            <td>{{ categoria.descripcion }}</td>
+            <td>{{ categoria.estado |yesno:'Activo,Inactivo' }}</td>
+            <td>
+              <button class="btn-espacio btn-eliminar-categoria btn btn-outline-danger" data-id="{{ categoria.id_categoria }}">Eliminar</button>
+              <button class="btn-formActualizar btn btn-outline-info" data-id="{{ categoria.id_categoria }}" data-bs-toggle="modal" data-bs-target="#modal_actualizar">Actualizar</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade otraClase" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVA CATEGORIAS</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form_body" id="form_agregar_categoria" method="POST">
+            {% csrf_token %}
+            {{ form.nombre_categoria.label_tag }}
+            {{ form.nombre_categoria }}
+            {{ form.descripcion.label_tag }}
+            {{ form.descripcion }}
+            {{ form.estado.label_tag }}
+            {{ form.estado  }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="btGuardarCategoria" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <br />
+  <br />
+  
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_actualizar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h5 class="modal-title fs-5 text-black" id="staticBackdropLabel">Actualizar Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form_actualizar">
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">Nombre Categoria</label>
+            <input type="text" class="form-control" id="frm_nom_categoria" name="nombre_categoria" placeholder="Texto">
+          </div>
+          <div class="form-group">
+            <label class= "text-black" for="exampleInputText1">Descripcion</label>
+            <input type="text" class="form-control" id="frm_desc" name="descripcion" placeholder="Texto">
+          </div>
+          <div class="form-group">
+            <label for="inputState" class="text-black">Estado</label>
+            <select name= "estado" id="frm_estado" class="form-select">
+              <option value = "Activo">Activo</option>
+              <option value = "Inactivo">Inactivo</option>
+            </select> 
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="`button" id="btn_actualizar" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- ! USANDO TABLE -->
+
+
+
+  <span id="mensajemarca"></span>
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/popper.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/tippy.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/categorias.js' %}"></script>
+  <script type="module" src="{% static 'js/reportesimprimir.js' %}"></script>
+  
+{% endblock %}
+
+
+

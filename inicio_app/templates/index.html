@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% block title %}
+    Inicio
+  {% endblock %}
+
+  {% block link %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio_app/inicio.css' %}" />
+  {% endblock %}
+</head>
+
+{% block body %}
+
+  <div class="inicio_seccion">
+    <div class="division1">
+      <div class="transparente">
+        <h1 id="pbienvenida" data-text="Bienvenidos a nuestra tienda ">Bienvenidos a nuestra tienda</h1>
+        <h1 id="p2bienvenida" data-text="la surtidora el buen precio">la surtidora el buen precio</h1>
+      </div>
+
+      <div class="logotipo">
+        {% load static %}
+        <img id="logotienda" src="{% static 'images/logo.png' %}" alt="" />
+      </div>
+    </div>
+  </div>
+{% endblock %}

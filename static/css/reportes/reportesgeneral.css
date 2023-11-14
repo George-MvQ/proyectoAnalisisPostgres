@@ -1,0 +1,106 @@
+#titulo{
+    font-size:24px;
+    text-align: center !important;
+    padding-top: 5%;
+    padding: 2%;
+    margin: 2.5%;
+}
+
+.principal{
+    margin-top: -4%;
+}
+
+.form{
+    margin-top: 3%;
+}
+.card1{
+    width: 14rem ; 
+    background-color: white;
+    border:solid  gray 14px;
+    border-radius: 12%;
+}
+
+.achecinco{
+    text-align: center;
+    font-size: 16px;
+}
+
+.fondonegro{
+    background-color:#0F171A;
+    height: 8rem; 
+    border-radius: 6.5%;
+}
+
+.boton{
+    position: absolute;
+    bottom: 6%;
+    left: 11%;
+}
+
+.pading{
+    padding:5%;
+}
+
+
+/* menu nav2gador */
+#idnav2{
+    position: static;
+    font-weight: bolder;
+}
+
+#id-header2{
+    background-color: #1D2B34;
+    padding: 2%;
+}
+
+.form{
+    display: flex;
+    gap: 3%;
+    justify-content: center;
+}
+
+.form img {
+    grid-area: imagen;
+    width: 150px; 
+    margin: 0 auto;
+
+}
+
+/* Manteniendo tus estilos existentes */
+
+/* Estilos para pantallas medianas y grandes */
+@media screen and (min-width: 768px) {
+    .form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1%; /* Reducir el espacio entre elementos */
+        justify-content: center;
+        margin: 0 auto; /* Centrar el formulario en la pantalla */
+        max-width: 1200px; /* Ancho máximo del formulario */
+        margin-left: 29%;
+        margin-right: 20%;
+    }
+
+    .form img {
+        width: 150px;
+        margin: 0 auto;
+    }
+}
+
+/* Estilos para pantallas pequeñas (por ejemplo, dispositivos móviles) */
+@media screen and (max-width: 767px) {
+    .form {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1%; /* Reducir el espacio entre elementos */
+        justify-content: center;
+        margin: 0 auto; /* Centrar el formulario en la pantalla */
+        max-width: 600px; /* Ancho máximo del formulario */
+    }
+
+    .form img {
+        width: 100px;
+        margin: 0 auto;
+    }
+}
+

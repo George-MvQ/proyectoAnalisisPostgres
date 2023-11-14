@@ -1,0 +1,47 @@
+{% extends 'shared/basevendedor.html' %}
+
+{% block link %}
+  <!-- carga de archivo css general -->
+  {% load static %}
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/adminstyle.css' %}" /> -->
+{% endblock %}
+
+{% block body %}
+  <div class="pruebaPepito">
+    <div>
+      <nav class="nav flex-column nav-pills barra">
+        <div class="sidebar">
+          <ul>
+            <!-- Aqui empieza el Primer bloque -->
+            <li>
+                <a href="{% url 'registrar_venta' %}" class="nav-link px-1">
+                  <!-- Aca metemos los links de los index -->
+                  <span class="me-2"><i class="bi bi-person-lines-fill"></i></span>
+                  <span>Registros</span>
+                </a>
+            </li>
+                  <li>
+                    <a href="{% url 'inventario_minimo' %}" class="nav-link px-1">
+                      <!-- Aca metemos los links de los index -->
+                      <span class="me-2"><i class="bi bi-cart-plus"></i></span>
+                      <span>Inventarios Minimos</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'historial_ventas' %}" class="nav-link px-1">
+                      <!-- Aca metemos los links de los index -->
+                      <span class="me-2"><i class="bi bi-file-earmark-plus"></i></span>
+                      <span>Historial de Ventas</span>
+                    </a>
+                  </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div>
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

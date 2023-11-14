@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilosreportes.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <header>
+
+            <div class="division"> 
+                <table>
+                  <tr>
+                    <th class="centered-cell"> 
+                      <div> 
+                        {% load static %}
+                        <img id="icon-store" class="logo" src="{% static 'images/logo_negro.png' %} "/>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="segundo">
+                        <p>Sololá. Zona 1, 05 Av 10-038 Barrio el Carmen</p>
+                        <p>Teléfono: 7762 3034</p>
+                        <p>Correo electrónico lasurtidorabuenprecio@gmail.com</p>
+                  
+                      </div> 
+                    </th>
+                    
+                    <th class=""> 
+                      <p>Fecha de Reporte</p>
+                      <p class="fecha">{{datos.fecha}}</p>
+
+                    </th>
+                  </tr>
+                </table>
+                <h1 class="titulo">REGISTROS DE VENTAS</h1>
+            </div>   
+  
+        </header>
+
+        <div class="container my-3 contenedor-tabla">
+            <table id="datosdetalle" class="table table-striped">
+                <thead>
+                  <tr>
+                    <tr>
+                        <th class="encabezado">Codigo</th>
+                        <th class="encabezado">Producto</th>
+                        <th class="encabezado">Fecha</th>
+                        <th class="encabezado">Cantidad Vendida</th>
+                       
+                        <th class="encabezado">Precio Unitario</th>
+                        <th class="encabezado">Descuento</th>
+                        <th class="encabezado">Subtotal</th>
+                      </tr>
+                    
+                  </tr>
+                </thead>
+                <tbody id="tablaBody" class="text-white">
+                  {% for detalle in datos.data  %}
+                  <tr data-id="{{ venta.id_detalle_venta}}">
+                    <td>{{ detalle.id_detalle_venta }}</td>
+                    <td>{{ detalle.fk_id_producto1 }}</td>
+                    <td>{{ detalle.fk_venta.fecha_venta|date:"Y-m-d" }}</td>
+                    <td>{{ detalle.cantidad_producto  }}</td>
+                    <td>Q {{ detalle.precio_unitario }}</td>
+                    <td>Q {{ detalle.descuento}}</td>
+                    <td>Q {{ detalle.0.fk_venta.total }}</td> 
+                     
+                  </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <footer>
+
+    
+    </footer>
+   
+</body>
+
+</html>

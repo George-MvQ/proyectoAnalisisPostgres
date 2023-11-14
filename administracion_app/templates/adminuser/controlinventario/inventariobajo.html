@@ -1,0 +1,103 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block title %}
+  Modulo Administrativo
+{% endblock %}
+
+{% block link %}
+  <!-- carga de archivo css general -->
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/reportes/inventariosbajos.css' %}" />
+<!--   <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+{% endblock %}
+
+{% block body %}
+
+<h1 class="titulo">INVENTARIOS BAJOS</h1>
+  <!-- cargando imagenes -->
+  {% load static %}
+
+  <header id="id-header-admin">
+    {% load static %}
+  </header>
+  <hr />
+
+  <!-- Botoones -->
+  <button type="button" class="btn btn-success ml-10">Buscar por Cantidad</button>
+  <button type="button" class="btn btn-success ml-10">Ver todos</button>
+<p>{{usuarios}}</p>
+  <div class="table-responsive" style="margin: 4%; font-size: 9px; ">
+    <table id="datosusuario" class="table table-hover table-responsive">
+      <thead>
+        <tr class="text-center align-middle text-white font-weight-bold">
+          <th>Codigo</th>
+          <th>Descripcion</th>
+          <th>Marca</th>
+          <th>Precio Compra</th>
+          <th>Stock</th>
+          <th>Estado</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody" class="text-white">
+        {% for usuario in usuarios %}
+        <tr data-id="{{ usuario.0 }}">
+          <td>{{usuario.0}}</td>
+          <td>{{usuario.1}}</td>
+          <td>{{usuario.2}}</td>
+          <td>{{usuario.3}}</td>
+          <td><button class="btn-eliminar-marca btn btn-outline-danger"  data-id="{{usuario.0}}">Eliminar</button></td>    
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  
+  <!--   <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>password</th>
+                <th>last_login</th>
+                <th>is_login</th>
+                <th>is_superuser</th>
+                <th>username</th>
+                <th>first_name</th>
+                <th>last_name</th>
+                <th>email</th>
+                <th>is_staff</th>
+                <th>is_active</th>
+                <th>date_joined</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>password</th>
+                <th>last_login</th>
+                <th>is_login</th>
+                <th>is_superuser</th>
+                <th>username</th>
+                <th>first_name</th>
+                <th>last_name</th>
+                <th>email</th>
+                <th>is_staff</th>
+                <th>is_active</th>
+                <th>date_joined</th>
+            </tr>
+        </tfoot>
+    </table>   -->
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script src="{% static 'js/administracion_app/jsmenuadmin.js' %}"></script>
+{% endblock %}

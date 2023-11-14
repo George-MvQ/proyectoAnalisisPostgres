@@ -1,0 +1,180 @@
+{% extends 'shared/menu_lateral2.html' %}
+
+{% block title %}
+  Informe Analisisis
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--   <script src="{% static 'js/jquery.min.js' %}"></script>
+           --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  {% comment %} <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> {% endcomment %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+<!--   <link rel="stylesheet" type="text/css" href="{% static 'css/gridjs.css' %}" /> -->
+{% endblock %}
+
+{% block content %}
+  <h2>Informes y Analisis</h2>
+ 
+
+  <div class="pollito"></div>
+
+  <!-- 
+  <label for="recordsPerPage">Registros por página:</label>
+  <select id="selectElementos">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+  </select>
+ -->
+
+  <div class="container my-3">
+    <table id="datosproductos" class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-white font-weight-bold">Codigo</th>
+          <th class="text-white font-weight-bold">Fecha </th>
+          <th class="text-white font-weight-bold">Nombre Producto</th>
+          <th class="text-white font-weight-bold">Total de Ventas</th>
+          <th class="text-white font-weight-bold">Precio de Venta</th>
+          <th class="text-white font-weight-bold">Precio de Compra</th>
+          <th class="text-white font-weight-bold">Total Ganancia</th>
+        
+        </tr>
+      </thead>
+      <tbody id="tablaBody">
+        {% for producto in datos %}
+          <tr data-id="{{ producto.0}}">
+            <td>{{ producto.0}}</td>
+            <td>{{ producto.1}}"</td>
+            <td>{{ producto.2 }}</td>
+            <td>{{ producto.9 }}</td>
+            <td>{{ producto.6 }}</td>
+            <td>
+                
+              <button class="btn-espacio btn-eliminar-producto btn btn-outline-danger" data-id="{{ producto.0 }}">Eliminar</button>
+              <button class="btn-detalles-usuario btn btn-outline-info" data-id="{{ producto.0 }}" data-bs-toggle="modal" data-bs-target="#detalleProductoModal{{ producto.0 }}">Detalles</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- MODAL PARA INGRESAR DATOS  -->
+<!-- 
+  <div class="modal fade otraClase" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">INGRESAR NUEVA COMPRA</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form_body" id="form_agregar_marca" method="POST">
+           
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="btGuardarMarca" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br /> -->
+  <div id="tablaPrueba"></div>
+
+  <!-- Modal para agregar un nuevo producto -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="agregarProductoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content text-black">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agregarProductoModalLabel">Agregar Nuevo Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form_body" id="form_agregar_marca" method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="nombreProducto" class="form-label">Nombre del Producto:</label>
+            <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" required>
+          </div>
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <input type="text" class="form-control" id="descripcion" name="descripcion">
+          </div>
+          <div class="mb-3">
+            <label for="codigoBarras" class="form-label">Código de Barras:</label>
+            <input type="text" class="form-control" id="codigoBarras" name="codigoBarras">
+          </div>
+          <div class="mb-3">
+            <label for="tamanio" class="form-label">Tamaño:</label>
+            <input type="number" class="form-control" id="tamanio" name="tamanio" step="0.01" required>
+          </div>
+          <!-- Agregar más campos aquí según tus necesidades -->
+          <button type="submit" id="'btnAgregarDatos" data-bs-dismiss="modal" class="btn btn-primary">Guardar Producto</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ! USANDO TABLE -->
+
+  <span id="mensajemarca"></span>
+
+ <!--  MODAL DE DETALLES DE PRODUCTO -->
+
+{% for producto in datos %}
+  <!-- Modal de detalles del producto -->
+  <div class="modal fade text-dark" id="detalleProductoModal{{ producto.0 }}" tabindex="-1" aria-labelledby="detalleProductoModalLabel{{ producto.0 }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detalleProductoModalLabel{{ producto.0 }}">Detalles del Producto:  {{ producto.1 }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>ID Producto:</strong> {{ producto.0 }}</p>
+              <p><strong>Descripción:</strong> {{ producto.2 }}</p>
+              <p><strong>Código de Barras:</strong> {{ producto.3 }}</p>
+              <p><strong>Tamaño:</strong> {{ producto.4 }}</p>
+              <p><strong>Estado:</strong> {% if producto.5 %}Activo{% else %}Inactivo{% endif %}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Presentación:</strong> {{ producto.6 }}</p>
+              <p><strong>Unidad de Medida:</strong> {{ producto.7 }}</p>
+              <p><strong>Categoría:</strong> {{ producto.8 }}</p>
+              <p><strong>Marca:</strong> {{ producto.9 }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+
+
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/nuevoProducto.js' %}"></script>
+  <script type="module" src="{% static 'js/el_buen_precio/detallescatalogopro.js' %}"></script>
+  
+{% endblock %}

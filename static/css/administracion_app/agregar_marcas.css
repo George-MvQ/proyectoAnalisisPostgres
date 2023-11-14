@@ -1,0 +1,83 @@
+.container {
+    position: relative; /* Establece la posición del contenedor como relativa */
+    z-index: 1;
+}
+
+#btnAgregarMarca {
+    position: absolute; /* Establece la posición del botón como absoluta con respecto al contenedor */
+    top: 15px; /* Ajusta la posición vertical según tus necesidades */
+    left: 20px; /* Ajusta la posición horizontal según tus necesidades */
+    z-index: 1;
+}
+
+h2{
+    text-align: justify;
+    text-align: center;
+    margin-top: 3%;
+}
+
+
+
+.div_form_marca{
+    display: none;
+    width: 35vw;
+    height: 5%;
+    color: black;
+}
+
+.form_body{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    row-gap: 0.5rem;
+    column-gap: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+/*
+.pruebaA{
+    background-color: aqua;
+    height: 90%;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+*/
+
+
+.cuerpo-tabla{
+    background-color:rgb(35, 43, 49);
+}
+.tabla-datos{
+    background-color: blueviolet;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+/* .row{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+     margin-top: 130px; 
+    background-color: rgb(201, 198, 20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.color-info{
+    background-color: rgb(29, 43, 52)
+}
+
+.contenedor-totales{
+    width: 500px;
+    margin-top: 3rem;
+}
+
+.cajabotones{
+    width:50px;
+    background-color: red !important;
+}
+.moverboton{
+    margin-left: 92%;
+    margin-top: -7.5%;
+}
+

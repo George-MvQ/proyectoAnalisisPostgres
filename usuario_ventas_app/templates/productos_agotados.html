@@ -1,0 +1,83 @@
+{% extends 'shared/menu_ventas.html' %}
+
+{% block title %}
+  Registrar venta
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <!--   <script src="{% static 'js/jquery.min.js' %}"></script>
+           --> <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/dataTables.bootstrap5.min.css' %}" />
+  <!-- <link rel="stylesheet" href="  {% static 'css/font-awesome/font-awesome_all.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/agregar_marcas.css' %}" />
+  
+{% endblock %}
+
+{% block content %}
+  <h2>Productos Agotados</h2>
+  <br>
+
+  <div class="container my-3">
+    <table id="registroventas" class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-white font-weight-bold">COD Producto</th>
+          <th class="text-white font-weight-bold">Producto</th>
+          <th class="text-white font-weight-bold">Cantidad</th>
+          <th class="text-white font-weight-bold">Precio Unitario</th>
+          <th class="text-white font-weight-bold">Categoria</th>
+          <th class="text-white font-weight-bold">Opciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody">
+        {% for producto in datos %}
+          <tr data-id="{{ producto.0}}">
+            <td>{{ producto.0}}</td>
+            <td>{{ producto.1}}"</td>
+            <td>{{ producto.2 }}</td>
+            <td>{{ producto.9 }}</td>
+            <td>{{ producto.6 }}</td>
+            <td>
+                
+              <button class="btn-espacio btn-eliminar-producto btn btn-outline-danger" data-id="{{ producto.0 }}">Eliminar</button>
+              <button class="btn-detalles-usuario btn btn-outline-info" data-id="{{ producto.0 }}" data-bs-toggle="modal" data-bs-target="#detalleProductoModal{{ producto.0 }}">Detalles</button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+    <div class="col-9 ms-5">
+      <div class="row g-3">
+
+        <div class="col-sm">
+          <label for="" class="form-label">Vuelto</label>
+          <input type="number" class="form-control" placeholder="vuelto" aria-label="City">
+        </div>
+        <div class="col-sm">
+          <label for="" class="form-label">Total</label>
+          <input type="number" class="form-control" placeholder="Total" aria-label="State">
+        </div>
+      </div>
+      <br>
+      <button type="button" class="btn btn-outline-success ml-2">Agregar Ventas</button>
+      <button type="button" class="btn btn-outline-warning">Generar Comprobantes</button>
+    </div>
+    <br>   
+    <br>
+{% endblock %}
+
+{% block script %}
+  {% load static %}
+  <script src="{% static 'DataTables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTablesButtons.min.js' %}"></script>
+  <script src="{% static 'DataTables/js/dataTables.bootstrap5.min.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  
+  <script type="module" src="{% static 'js/registroventas.js' %}"></script>
+  
+  
+{% endblock %}

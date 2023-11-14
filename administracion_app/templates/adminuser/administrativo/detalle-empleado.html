@@ -1,0 +1,100 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block title %}
+  Detalle de Empleado
+{% endblock %}
+
+{% block link %}
+  <!-- carga de archivo css general -->
+
+  {% load static %}
+ 
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/adminstyle.css' %}" />
+
+  {% endblock %}
+
+{% block body %}
+
+
+  <div class="container my-1">
+    <div>
+<!--       <h1>{{ usuario.username }}</h1>
+      <hr class="border border-primary border-3 opacity-75" />
+    </div> -->
+    <div class="text-dark bg-light rounded p-4">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 id="sp_primer_nombre" >{{ registro.primer_nombre }}</h1>
+          <hr class="border border-primary border-3 opacity-75" />
+          <p class="border p-2">
+            <span class="fw-bold">Id Empleado: </span><span id="sp_id_empleado">{{ registro.id_empleado }}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Segundo Nombre: </span><span id="sp_segundo_nombre">{{ registro.segundo_nombre }}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Otros Nombres: </span><span id="sp_otros_nombres">{{ registro.otros_nombres }}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Primer Apellido: </span><span id="sp_primer_apellido">{{ registro.primer_apellido }}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Segundo Apellido: </span><span id="sp_segundo_apellido">{{ registro.segundo_apellido }}</span>
+          </p>
+        </div>
+        
+        <div class="col-md-6 pt-5 mt-4">
+           <br>
+          <p class="border p-2">
+            <span class="fw-bold">Apellido Casado: </span><span id="sp_apellido_casada">{{ registro.apellido_casada }}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Puesto: </span><span id="sp_fk_id_puesto">{{ registro.fk_id_puesto }}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Usuario: </span><span id="sp_fk_usuario">{{ registro.fk_usuario }}</span>
+          </p>
+        </div>
+      </div>
+      <br />
+      <hr class="my-4" />
+    </div>
+    <br />
+    <a class="btn btn-info" href="{% url 'empleado_nuevo' %}">Regresar</a>
+    <a href="" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editarEmpleadoModal">Modificar</a>
+  </div>
+
+
+
+  <!-- Modal para editar usuario -->
+
+  <div class="modal fade" id="editarEmpleadoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-dark" id="modalLabel">Editar Empleado</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-dark">
+          <form id="form_actualizar" class="form_body">
+            {% csrf_token %}
+            {% load bootstrap5 %}
+            {% bootstrap_form form %}
+           {% buttons %}
+             <button id="btn_actualizar" data-id = "{{registro.id_empleado}}" type="submit" class="btn btn-primary">Actualizar</button>
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+           {% endbuttons %}
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block script %}
+  {% load static %}
+
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/administracion_app/actualizar_empleado.js' %}"></script>
+{% endblock %}

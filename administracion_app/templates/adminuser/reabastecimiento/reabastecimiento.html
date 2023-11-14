@@ -1,0 +1,48 @@
+{% extends 'shared/baseadmin.html' %}
+{% block title %}
+  Inicio
+{% endblock %}
+
+{% block link %}
+
+{% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/abastecimiento.css' %}" />
+  <!-- css -->
+{% endblock %}
+
+{% block body %}
+  <h1 id="titulo">OPCIONES DE REABASTECIMIENTO</h1>
+  <form class="formulario form">
+    <div class="card card1">
+      <img class="pading" src="{% static 'images/administracion_app/imagen5.png' %}" class="card-img-top" alt="..." />
+      <div class="card-body fondonegro">
+        <h5 class="card-title text-white achecinco">INGRESO DE PRODUCTOS</h5>
+        <a href="{% url 'productos_nuevos' %}" class="btn btn-primary boton">Gestionar Modulo</a>
+      </div>
+    </div>
+
+{% comment %}     <div class="card card1">
+      <img class="pading" src="{% static 'images/administracion_app/imagen6.png' %}" class="card-img-top" alt="..." />
+      <div class="card-body fondonegro">
+        <h5 class="card-title text-white achecinco">REPORTES</h5>
+        <a href="#" class="btn btn-primary boton">Gestionar Modulo</a>
+      </div>
+    </div>
+ {% endcomment %}
+    <div class="card card1">
+      <img class="pading" src="{% static 'images/administracion_app/imagen7.png' %}" class="card-img-top" alt="..." />
+      <div class="card-body fondonegro">
+        <h5 class="card-title text-white achecinco">PROVEEDORES</h5>
+        <a href="{% url 'proveedores' %}" class="btn btn-primary boton">Gestionar Modulo</a>
+      </div>
+    </div>
+
+    <div class="card card1">
+      <img class="pading" src="{% static 'images/administracion_app/imagen8.png' %}" class="card-img-top" alt="..." />
+      <div class="card-body fondonegro">
+        <h5 class="card-title text-white achecinco">GESTION DE PEDIDOS</h5>
+        <a href="{% url 'listadopedidos' %}" class="btn btn-primary boton">Gestionar Modulo</a>
+      </div>
+    </div>
+  </form>
+{% endblock %}

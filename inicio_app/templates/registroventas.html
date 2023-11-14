@@ -1,0 +1,32 @@
+{%extends './base.html'%}
+{%block title%}RegistroVentas{%endblock%}
+
+{% load static %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registroventas.css' %}">
+{% endblock%}
+{%block body%}
+    <img id="logoventas" src="{% static 'images/buena.png' %}" alt="">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+             </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="active-row">
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+{%endblock%}

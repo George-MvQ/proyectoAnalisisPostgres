@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+body,
+button {
+  font-family: "Inter", sans-serif;
+}
+:root {
+  --offcanvas-width: 270px;
+  --topNavbarHeight: 56px;
+}
+.sidebar-nav {
+  width: var(--offcanvas-width);
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+}
+.sidebar-link .right-icon {
+  display: inline-flex;
+}
+.sidebar-link[aria-expanded="true"] .right-icon {
+  transform: rotate(180deg);
+}
+@media (min-width: 992px) {
+  body {
+    overflow: auto !important;
+  }
+  main {
+    margin-left: var(--offcanvas-width);
+  }
+  /* this is to remove the backdrop */
+  .offcanvas-backdrop::before {
+    display: none;
+  }
+  .sidebar-nav {
+    -webkit-transform: none;
+    transform: none;
+    visibility: visible !important;
+    height: calc(100% - var(--topNavbarHeight));
+    top: var(--topNavbarHeight);
+  }
+}
+.navbar-dark {
+    background-color: #1F2C34 !important;
+}
+
+.bg-dark{
+    background-color: #1F2C34 !important;
+}
+
+
+
+.color{
+    /* background-color: yellow !important; */
+    margin-top: 20px;
+}
+
+.alineacion{
+    /* align-items: right; */
+    margin-right: 70%;
+}
+
+.bg-light1{
+    background-color: #1F2C34 !important;
+}
+
+.pagina2 {
+    /* border-right: 300px; */
+    width: 80% !important;
+    height: 530px !important;
+    
+    /* width: 400px;
+    height: 400px; */
+    
+      margin-left: 250px; /* Esto mueve el iframe hacia la derecha al máximo posible */
+      display: block; /* Asegura que el iframe ocupe todo el ancho disponible */
+      border: none;
+  
+  }

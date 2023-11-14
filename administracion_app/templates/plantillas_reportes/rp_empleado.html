@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilosreportes.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <header>
+
+            <div class="division"> 
+                <table>
+                  <tr>
+                    <th class="centered-cell"> 
+                      <div> 
+                        {% load static %}
+                        <img id="icon-store" class="logo" src="{% static 'images/logo_negro.png' %} "/>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="segundo">
+                        <p>Sololá. Zona 1, 05 Av 10-038 Barrio el Carmen</p>
+                        <p>Teléfono: 7762 3034</p>
+                        <p>Correo electrónico lasurtidorabuenprecio@gmail.com</p>
+                  
+                      </div> 
+                    </th>
+                    
+                    <th class=""> 
+                      <p>Fecha de Reporte</p>
+                      <p class="fecha">{{datos.fecha}}</p>
+
+                    </th>
+                  </tr>
+                </table>
+                <h1 class="titulo">REGISTROS DE EMPLEADOS</h1>
+            </div>   
+  
+        </header>
+
+        <div class="container my-3 contenedor-tabla">
+            <table id="datosdetalle" class="table table-striped">
+                <thead>
+                  <tr>
+                    <tr>
+                        <th class="encabezado">Id Empleado</th>
+                        <th class="encabezado">Primer Nombre</th>
+                        <th class="encabezado">Segundo Nombre</th>
+                         
+                        <th class="encabezado">Primer Apellido</th>
+                        <th class="encabezado">Segundo Apellido</th>
+                        <th class="encabezado">Puesto</th>
+                        
+                        
+                      </tr>
+                    
+                  </tr>
+                </thead>
+                <tbody id="tablaBody" class="text-white">
+                  {% for empleado in datos.data  %}
+                  <tr data-id="{{ empleado.id_empleado}}">
+                    <td>{{ empleado.id_empleado }}</td>
+                    <td>{{ empleado.primer_nombre }}</td>
+                    <td>{{ empleado.segundo_nombre }}</td>
+                    <td>{{ empleado.primer_apellido }}</td>
+                    <td>{{ empleado.segundo_apellido }}</td>
+                    <td>{{ empleado.fk_id_puesto }}</td>
+                    
+                     
+                  </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <footer>
+
+    
+    </footer>
+   
+</body>
+
+</html>

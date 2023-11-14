@@ -1,0 +1,83 @@
+.container {
+    position: relative; /* Establece la posición del contenedor como relativa */
+    z-index: 1;
+}
+
+#btnAgregarMarca {
+    position: absolute; /* Establece la posición del botón como absoluta con respecto al contenedor */
+    top: 15px; /* Ajusta la posición vertical según tus necesidades */
+    left: 20px; /* Ajusta la posición horizontal según tus necesidades */
+    z-index: 1;
+}
+
+h2{
+    text-align: justify;
+    text-align: center;
+    margin-top: 3%;
+}
+
+
+
+.div_form_marca{
+    display: none;
+    width: 35vw;
+    height: 5%;
+    color: black;
+}
+
+.form_body{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    row-gap: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+/*
+.pruebaA{
+    background-color: aqua;
+    height: 90%;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+*/
+/* 
+aqui quite el color amarillo pero no funciona no quita el color */
+.opciones_tabla{
+    display: grid;
+    grid-template-columns: 15% 30% 55%;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+   
+    place-items: center;
+}
+
+.botonFormulario{
+    order: 1;
+    z-index: 2;
+}
+.filter{
+    order:3;
+}
+.length{
+    order: 2;
+}
+
+.dataTables_filter{
+    /* background-color: aquamarine; */
+}
+
+
+/* .row{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+     margin-top: 130px; 
+    background-color: rgb(201, 198, 20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+

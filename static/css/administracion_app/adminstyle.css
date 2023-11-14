@@ -1,0 +1,100 @@
+
+
+.titulo{
+    text-align: center;
+    color:white;
+    margin-top: 40px;
+}
+
+/* menu de navegacion */
+
+#id-nav-admin{
+    position: static;
+    font-weight: bolder;
+}
+#id-header-admin{
+    padding: -1%;
+}
+
+#id-buscar{
+    position: absolute;
+    left: 70%;
+}
+
+#spaces{
+    margin-left: 10%;
+}
+
+
+.btn-espacio{
+    margin-right: 0.5em;
+}
+
+
+.div_form_agregar{
+    display: none;
+    width: 35vw;
+    height: 5%;
+    color: black;
+}
+
+.form_body{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    row-gap: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+
+/* Estilos para el contenedor divs emergentes */
+
+/* .contenedor {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: rgba(122, 117, 117, 0.5);
+
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+ */
+/* .contus {
+    background-color: #fff;
+    width: 80%;
+    height: 80%;
+    border-radius: 4px;
+    margin: 9%;
+}
+
+.contedit {
+    background-color: #fff;
+    width: 80%;
+    height: 80%;
+    border-radius: 4px;
+    margin: 9%;
+
+}
+
+.contelim {
+    background-color: #fff;
+    width: 80%;
+    height: 80%;
+    border-radius: 4px;
+    margin: 9%;
+}
+ */
+
+
+
+#in_otros_nombres{
+    height: 10px;
+}
+.resizable {
+    resize: both;
+}

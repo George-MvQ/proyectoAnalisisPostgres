@@ -1,0 +1,48 @@
+{% extends 'shared/baseadmin.html' %}
+{% block title %}
+  Inicio
+{% endblock %}
+
+{% block link %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/inicio_admin.css' %}" />
+  <!-- css -->
+{% endblock %}
+
+{% block body %}
+
+  <h1 id="titulo" style="font-size:24px;">MODULO DEL ADMINISTRADOR</h1>
+  <form class="formulario form">
+    <div class="card card1">
+      <img class="pading" src="{% static 'images/administracion_app/imagen1.png' %}" class="card-img-top" alt="..." />
+      <div class="card-body fondonegro">
+        <h5 class="card-title text-white achecinco">MODULO DE REABASTECIMIENTO</h5>
+        <a href="{% url 'reabastecimiento' %}" class="btn btn-primary boton">Gestionar Modulo</a>
+      </div>
+    </div>
+
+    <div class="card card1">
+      <img class="pading" src="{% static 'images/administracion_app/imagen2.png' %}" class="card-img-top" alt="..." />
+      <div class="card-body fondonegro">
+        <h5 class="card-title text-white achecinco">MODULO CONTROL DE INVENTARIO</h5>
+        <a href="{% url 'historial_ventas_admin' %}" class="btn btn-primary boton">Gestionar Modulo</a>
+      </div>
+    </div>
+
+    <div class="card card1">
+      <img class="pading" src="{% static 'images/administracion_app/imagen3.png' %}" class="card-img-top" alt="..." />
+      <div class="card-body fondonegro">
+        <h5 class="card-title text-white achecinco">MODULO DE MANTENIMIENTO</h5>
+        <a href="/admin" class="btn btn-primary boton">Gestionar Modulo</a>
+      </div>
+    </div>
+
+    <div class="card card1">
+      <img class="pading" src="{% static 'images/administracion_app/imagen4.png' %}" class="card-img-top" alt="..." />
+      <div class="card-body fondonegro">
+        <h5 class="card-title text-white achecinco">MODULO ADMINISTRATIVO</h5>
+        <a href="{% url 'gestion_usuarios' %}" class="btn btn-primary boton">Gestionar Modulo</a>
+      </div>
+    </div>
+  </form>
+{% endblock %}

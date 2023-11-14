@@ -1,0 +1,133 @@
+{% extends 'shared/baseadmin.html' %}
+
+{% block title %}
+  detalle de usuario
+{% endblock %}
+
+{% block link %}
+  <!-- carga de archivo css general -->
+
+  {% load static %}
+ 
+  <link rel="stylesheet" type="text/css" href="{% static 'css/administracion_app/adminstyle.css' %}" />
+
+  {% endblock %}
+
+{% block body %}
+
+
+  <div class="container my-1">
+    <div>
+<!--       <h1>{{ usuario.username }}</h1>
+      <hr class="border border-primary border-3 opacity-75" />
+    </div> -->
+    <div class="text-dark bg-light rounded p-4">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 id="sp_username" >{{ usuario.username }}</h1>
+          <hr class="border border-primary border-3 opacity-75" />
+          <p class="border p-2">
+            <span class="fw-bold">Id Usuario: </span><span id="sp_id">{{ usuario.id }}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Super Usuario: </span><span id="sp_is_superuser" >{{ usuario.is_superuser|yesno:'Sí,No' }}</span>
+          </p>
+          <!-- <p class="border p-2">
+            <span class="fw-bold">nombre usuario: </span><span id="sp_nombre_usuario" > {{usuario.username }}</span>
+          </p> -->
+          <p class="border p-2">
+            <span class="fw-bold">Email: </span><span id="sp_email" >{{ usuario.email }}</span>
+          </p>
+        </div>
+        
+        <div class="col-md-6 pt-5 mt-4">
+           <br>
+          <p class="border p-2">
+            <span class="fw-bold">Activo: </span><span id="sp_is_active">{{ usuario.is_active|yesno:'Sí,No' }}</span>
+          </p>
+          <p class="border p-2">
+            <span class="fw-bold">Fecha Registro: </span><span id="sp_date_joined" >{{ usuario.date_joined }}</span>
+          </p>
+        </div>
+      </div>
+      <br />
+      <hr class="my-4" />
+    </div>
+    <br />
+    <a class="btn btn-info" href="{% url 'gestion_usuarios' %}">Regresar</a>
+    <a href="" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">Modificar</a>
+  </div>
+
+
+
+  <!-- Modal para editar usuario -->
+
+  <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-dark" id="modalLabel">Editar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-dark">
+          <form id="formulario_actualizacion">
+            <div class="mb-3 ">
+              <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
+              <input type="text" class="form-control" id="username" name="username" value="{{ usuario.username }}" required />
+              {% comment %} <div class="valid-feedback">
+                bien
+              </div>
+              <div class="invalid-feedback">
+                error
+              </div> {% endcomment %}
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico:</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{ usuario.email }}" required />
+              {% comment %} <div class="valid-feedback">
+                bien
+              </div>
+              <div class="invalid-feedback">
+                error
+              </div>
+            </div> {% endcomment %}
+            <div class="mb-3">
+              <label for="password" class="form-label">Nueva contraseña:</label>
+              <input type="password" class="form-control" id="password" name="password"/>
+            </div> 
+
+           <div class="mb-3">
+              <label for="confirpassword" class="form-label">Confirmar contraseña:</label>
+              <input type="password" class="form-control" id="confir_contra" name="confirpassword"/>
+           </div>
+            <div class="mb-3">
+              <input type="checkbox" class="form-check-input" id="is_superuser" name="is_superuser" {% if usuario.is_superuser %}checked{% endif %} />
+              <label class="form-check-label" for="is_superuser">Super Usuario</label>
+            </div>
+            <div class="form-check form-switch mb-3">
+              <input class="form-check-input" type="checkbox" role="switch" name="is_active" id="flexSwitchCheckDefault" {% if usuario.is_active %}checked{% endif %} />
+              <label class="form-check-label" for="flexSwitchCheckDefault" id="switchLabel">Activo</label>
+           </div>
+
+            <div class="mb-3">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" id="btnGuardarCambios">Guardar Cambios</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block script %}
+  {% load static %}
+  {% comment %} <script src="https://unpkg.com/@popperjs/core@2"></script>
+   {% endcomment %}
+  {% comment %} <script src="https://unpkg.com/tippy.js@6"></script> {% endcomment %}
+  <script type="module" src="{% static 'js/libreria/popper.js' %}"></script>
+  <script type="module" src="{% static 'js/libreria/tippy.js' %}"></script>
+  <script type="module" src="{% static 'js/Crud.js' %}"></script>
+  <script type="module" src="{% static 'js/administracion_app/detalles_usuario.js' %}"></script>
+{% endblock %}
