@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'el_buen_precio.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/postgres', 
+        default='postgresql://postgres:postgres@localhost/postgres', 
         conn_max_age=600
     )        # Feel free to alter this value to suit your needs.        default='postgresql://postgres:postgres@localhost:5432/mysite',        conn_max_age=600    )
 }
