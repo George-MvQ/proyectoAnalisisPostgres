@@ -43,11 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic', 
     'inicio_app',
     'administracion_app',
     'usuario_ventas_app',
     'bootstrap5',
     'django_template_maths',
+    
+    
     
     
 ]
@@ -63,6 +66,7 @@ MIDDLEWARE = [
     'administracion_app.middleware.BloquarRutasMiddleware',
     'usuario_ventas_app.middleware.BloquarRutasMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     
 ]
 
